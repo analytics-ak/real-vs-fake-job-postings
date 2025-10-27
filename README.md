@@ -1,3 +1,9 @@
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/analytics-ak/real-vs-fake-job-postings/blob/main/Job_post.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/analytics-ak/real-vs-fake-job-postings/main)
+[![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/kernels/welcome?src=https://github.com/analytics-ak/real-vs-fake-job-postings/blob/main/Job_post.ipynb)
+
+---
+
 # Real vs Fake Job Posting Analysis  
 *This project explores patterns in real and fake job listings using data analysis in Python.*  
 
