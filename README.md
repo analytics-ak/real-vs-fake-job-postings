@@ -4,17 +4,14 @@
 ---
 
 ## Project Overview  
-This project looks at **17,880 job posts** to understand how fake jobs differ from real ones.  
-The main idea is to study how scammers create fake job ads and find simple ways to catch them early.  
+This project looks at **17,880 job posts** to understand how fake jobs differ from real ones. The main idea is to study how scammers create fake job ads and find simple ways to catch them early.  
 
-Fake job postings waste people’s time, mislead job seekers, and lower trust in online job platforms.  
-By finding patterns in the data, we can identify warning signs that often appear in fake job posts and build steps to stop them.  
+Fake job postings waste people’s time, mislead job seekers, and lower trust in online job platforms. By finding patterns in the data, we can identify warning signs that often appear in fake job posts and build steps to stop them.  
 
 ---
 
 ## Objectives  
-The goal of this analysis is to clearly show what makes a fake job post look different from a real one.  
-With these findings, we can suggest simple steps that can:  
+The goal of this analysis is to clearly show what makes a fake job post look different from a real one. With these findings, we can suggest simple steps that can:  
 - Identify risky job posts early.  
 - Protect job seekers from scams.  
 - Build more trust between job seekers and job platforms.  
@@ -22,9 +19,7 @@ With these findings, we can suggest simple steps that can:
 ---
 
 ## Why This Project Matters  
-Many people apply for jobs online, but not every listing is real.  
-A single fake post can waste hours of effort or even lead to personal data theft.  
-This project helps highlight patterns that separate fake job posts from real ones.  
+Many people apply for jobs online, but not every listing is real. A single fake post can waste hours of effort or even lead to personal data theft. This project helps highlight patterns that separate fake job posts from real ones.  
 
 > **Quick Insight:** Fake job posts often skip company details, use vague descriptions, and promise easy work-from-home opportunities.  
 
@@ -55,8 +50,7 @@ The dataset contains both real and fake job posts, allowing comparisons based on
 ## Project Steps  
 
 ### 1. Loading and Cleaning the Data  
-The dataset was loaded into a Pandas DataFrame.  
-Columns like company profile, salary, department, and industry had missing values, which were filled with “Unknown” for easy comparison.
+The dataset was loaded into a Pandas DataFrame. Columns like company profile, salary, department, and industry had missing values, which were filled with “Unknown” for easy comparison.
 
 ### 2. Creating New Features  
 New features were added to study patterns:  
@@ -65,8 +59,7 @@ New features were added to study patterns:
 - `company_missing` – marks if the company profile was missing.
 
 ### 3. Exploring the Data  
-Charts were created to compare real and fake posts on fields such as company info, salary, job type, and text length.  
-Word clouds were also generated to see common terms used in both categories.  
+Charts were created to compare real and fake posts on fields such as company info, salary, job type, and text length. Word clouds were also generated to see common terms used in both categories.  
 
 > **Quick Insight:** Fake job descriptions are usually short and use words that sound too easy or appealing.
 
@@ -80,8 +73,7 @@ Word clouds were also generated to see common terms used in both categories.
 </p>
 <p align="center"><i>Chart showing the number of real vs fake job postings.<br>Fake jobs are fewer in number but still cause major issues for job seekers.</i></p>
 
-Out of **17,880** jobs, only about **4.8%** were fake.  
-Even though fake jobs are a small percentage, they create big trust problems on job platforms.  
+Out of **17,880** jobs, only about **4.8%** were fake. Even though fake jobs are a small percentage, they create big trust problems on job platforms.  
 
 ---
 
@@ -180,11 +172,9 @@ Even though fake jobs are a small percentage, they create big trust problems on 
 ---
 
 ## Project Summary and Conclusion  
-This analysis of **17,880 job postings** clearly shows that fake job posts follow a predictable pattern.  
-They often skip company details, use short descriptions, and rely on catchy or vague words.  
+This analysis of **17,880 job postings** clearly shows that fake job posts follow a predictable pattern. They often skip company details, use short descriptions, and rely on catchy or vague words.  
 
-Even without complex models, simple checks — like verifying company info, checking text length, and spotting certain keywords — can stop fake listings before they reach users.  
-These small steps help protect job seekers, save time, and make online hiring safer.  
+Even without complex models, simple checks — like verifying company info, checking text length, and spotting certain keywords — can stop fake listings before they reach users. These small steps help protect job seekers, save time, and make online hiring safer.  
 
 > **Quick Insight:** Data analysis can be used in practical ways to improve user safety and build trust in digital hiring systems.  
 
@@ -203,7 +193,7 @@ These small steps help protect job seekers, save time, and make online hiring sa
 * 🔗 **LinkedIn:** [View My Profile](https://www.linkedin.com/in/analytics-ashish/)
 * 📂 **Dataset:** [Real VS Fake Jobs Prediction Dataset on Kaggle](https://www.kaggle.com/shivamb/real-or-fake-fake-jobposting-prediction)
 * 💻 **GitHub Repository:** [Real VS Fake Job Postings Analysis](https://github.com/analytics-ak/real-vs-fake-job-postings)
-* 📘 **Notebook:** [Job_post.ipynb](https://github.com/analytics-ak/funnel-drop-analysis/blob/main/funnel-drop.ipynb)
+* 📘 **Notebook:** [Job_post.ipynb](https://github.com/analytics-ak/real-vs-fake-job-postings/blob/main/Job_post.ipynb)
 
 <br>
 
