@@ -203,7 +203,7 @@ Even without complex models, simple checks — like verifying company info, chec
 
 <br>
 
-## Author: Ashish Kumar Dongre — Senior Data Analyst
+## Author: Ashish Kumar Dongre — Data Analyst
 I love working with data and finding simple insights that help businesses grow. Skilled in **Python (Jupyter, pandas, seaborn, matplotlib, Wordcloud)**, and experienced in turning raw data into clear, useful reports.
 
 --- 
