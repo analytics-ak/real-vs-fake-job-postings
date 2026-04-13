@@ -30,10 +30,12 @@ The question this project answers: **What are the simplest, most reliable signal
 ## What This Project Does
 
 - Analyzes **17,880 job postings** (real and fake) to find fraud patterns
-- Compares fake vs real listings across company info, description quality, keywords, salary, and industry
+- Compares fake vs real listings across company info, description quality, keywords, and salary
 - Tests which signals actually matter and which ones don't
 - Builds a **Trust Score system** that flags suspicious posts based on combined red flags
 - Ends with clear, actionable recommendations for job platforms
+
+This approach does not rely on machine learning — it uses simple, rule-based pattern detection that any platform can implement immediately without building or training a model.
 
 ---
 
@@ -61,7 +63,6 @@ The question this project answers: **What are the simplest, most reliable signal
 | telecommuting | 1 = remote work allowed, 0 = office only |
 | salary_range | Pay details (when the company shared them) |
 | employment_type | Full-time, Part-time, Contract, etc. |
-| industry | What kind of business or field |
 | fraudulent | **1 = fake post, 0 = real post** |
 
 Several columns like `salary_range` and `department` have high missing rates — which itself turns out to be one of the strongest fraud signals.
@@ -85,8 +86,6 @@ Fake posts almost never include a company logo or profile. Real companies show w
 Real job posts average much longer descriptions. Scammers don't bother writing detailed role descriptions — they keep it short, generic, and vague.
 
 ![Description Length](images/description_length_fixed_legend.png)
-
-![Requirements Length](images/requirements_length_distribution.png)
 
 ---
 
@@ -126,15 +125,7 @@ One missing field is normal. Four missing fields is a red flag.
 
 ---
 
-### 7. Some Industries Have Much Higher Fraud Rates
-
-Oil & Energy stands out at **~38% fraud rate** (109 fake posts out of 287 — large enough sample to be reliable). Healthcare and Telecom also run higher than average.
-
-![Industry Fraud Rate](images/industry_fraud_rate_high_res.png)
-
----
-
-### 8. Red Flags Stack Up — From 5% to 67%
+### 7. Red Flags Stack Up — From 5% to 67%
 
 This is where it all comes together. Individual signals are useful, but when they combine, the fraud rate climbs steeply.
 
@@ -157,7 +148,6 @@ A post that hits all four red flags has a **67% chance of being fake** — up fr
 | Factor | Result |
 |--------|--------|
 | Employment Type | Fake posts spread across all types — not a useful filter |
-| Time of posting | No meaningful pattern |
 
 ![Employment Type](images/employment_type_distribution_high_res.png)
 
@@ -189,7 +179,7 @@ This kind of check takes milliseconds to run. It catches most fake posts without
 
 ## Recommendations
 
-Four things a job platform should do based on this data:
+Three things a job platform should do based on this data:
 
 **1. Require company identity fields**
 Make company name, logo upload, and profile description mandatory. This single change blocks the most common pattern in fake posts.
@@ -200,14 +190,11 @@ Add a minimum character count for job descriptions and requirements. A floor of 
 **3. Flag suspicious keyword combinations**
 Build a simple keyword scanner. One keyword alone isn't enough — but two or three together should trigger a review.
 
-**4. Add extra scrutiny for high-risk industries**
-Oil & Energy, Healthcare, and Telecom show significantly higher fraud rates. Posts in these industries could go through a stricter review process.
-
 ---
 
 ## Conclusion
 
-Fake job posts are lazy. They skip company details, write short descriptions, use bait keywords, and leave fields blank. Real employers do the opposite.
+The data shows a consistent pattern: fake job postings lack basic transparency, structure, and detail that real employers naturally provide.
 
 These patterns are consistent enough to catch most fakes with a simple scoring system — no machine learning required. The Trust Score approach is lightweight, easy to implement, and doesn't slow down legitimate employers.
 
@@ -257,10 +244,8 @@ fake-job-detection/
     ├── employment_type_distribution_high_res.png
     ├── missing_company_profile_fraud_high_res.png
     ├── description_length_fixed_legend.png
-    ├── requirements_length_distribution.png
     ├── salary_transparency_fraud_rate.png
     ├── completeness_vs_fraud_rate.png
-    ├── industry_fraud_rate_high_res.png
     └── risk_factor_bold_high_res.png
 ```
 
