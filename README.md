@@ -12,8 +12,8 @@ Analyzed 17,880 job listings to find what separates fake posts from real ones â€
 ![Seaborn](https://img.shields.io/badge/Seaborn-0.13-4C72B0)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/analytics-ak/fake-job-detection/blob/main/scam_job_detection_and_risk_analysis.ipynb)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/analytics-ak/fake-job-detection/main?labpath=scam_job_detection_and_risk_analysis.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/analytics-ak/real-vs-fake-job-postings/blob/main/scam_job_detection_and_risk_analysis.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/analytics-ak/real-vs-fake-job-postings/main?labpath=scam_job_detection_and_risk_analysis.ipynb)
 
 </div>
 
@@ -255,7 +255,7 @@ fake-job-detection/
 
 1. Clone this repo
    ```bash
-   git clone https://github.com/analytics-ak/fake-job-detection.git
+   git clone https://github.com/analytics-ak/real-vs-fake-job-postings.git
    ```
 2. Install the required libraries
    ```bash
