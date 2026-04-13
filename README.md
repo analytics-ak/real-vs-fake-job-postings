@@ -1,211 +1,302 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/analytics-ak/real-vs-fake-job-postings/blob/main/Job_post.ipynb)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/analytics-ak/real-vs-fake-job-postings/main)
-[![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/kernels/welcome?src=https://github.com/analytics-ak/real-vs-fake-job-postings/blob/main/Job_post.ipynb)
+<div align="center">
+
+# Real vs. Fake Job Posting Analysis
+
+**Python | Pandas | Matplotlib | Seaborn**
+
+Analyzed 17,880 job listings to find what separates fake posts from real ones — and built a simple Trust Score system to flag suspicious listings before they reach job seekers.
+
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-2.x-150458?logo=pandas&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-3.x-11557C)
+![Seaborn](https://img.shields.io/badge/Seaborn-0.13-4C72B0)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/analytics-ak/fake-job-detection/blob/main/scam_job_detection_and_risk_analysis.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/analytics-ak/fake-job-detection/main?labpath=scam_job_detection_and_risk_analysis.ipynb)
+
+</div>
 
 ---
 
-# Real vs Fake Job Posting Analysis  
-*This project explores patterns in real and fake job listings using data analysis in Python.*  
+## Problem Statement
+
+Job platforms face a growing problem with fake listings. These posts look similar to real jobs, waste people's time, and can lead to financial scams. Manual detection doesn't scale.
+
+The question this project answers: **What are the simplest, most reliable signals that separate fake job posts from real ones — and can we turn them into a scoring system?**
 
 ---
 
-## Project Overview  
-This project looks at **17,880 job posts** to understand how fake jobs differ from real ones. The main idea is to study how scammers create fake job ads and find simple ways to catch them early.  
+## What This Project Does
 
-Fake job postings waste people’s time, mislead job seekers, and lower trust in online job platforms. By finding patterns in the data, we can identify warning signs that often appear in fake job posts and build steps to stop them.  
-
----
-
-## Objectives  
-The goal of this analysis is to clearly show what makes a fake job post look different from a real one. With these findings, we can suggest simple steps that can:  
-- Identify risky job posts early.  
-- Protect job seekers from scams.  
-- Build more trust between job seekers and job platforms.  
+- Analyzes **17,880 job postings** (real and fake) to find fraud patterns
+- Compares fake vs real listings across company info, description quality, keywords, salary, and industry
+- Tests which signals actually matter and which ones don't
+- Builds a **Trust Score system** that flags suspicious posts based on combined red flags
+- Ends with clear, actionable recommendations for job platforms
 
 ---
 
-## Why This Project Matters  
-Many people apply for jobs online, but not every listing is real. A single fake post can waste hours of effort or even lead to personal data theft. This project helps highlight patterns that separate fake job posts from real ones.  
+## The Dataset
 
-> **Quick Insight:** Fake job posts often skip company details, use vague descriptions, and promise easy work-from-home opportunities.  
+| Detail | Info |
+|--------|------|
+| **Source** | [Kaggle — Real or Fake Job Posting Prediction](https://www.kaggle.com/shivamb/real-or-fake-fake-jobposting-prediction) |
+| **Total Rows** | 17,880 |
+| **Columns** | 18 |
+| **Fake Posts** | ~4.8% (866 out of 17,880) |
+| **Type** | Mix of text fields and numeric flags |
 
----
+### Key Columns
 
-## Dataset  
-- **Source:** [Kaggle – Fake Job Postings Dataset](https://www.kaggle.com/shivamb/real-or-fake-fake-jobposting-prediction)  
-- **File Used:** `fake_job_postings.csv`  
-- **Size:** 17,880 rows and 18 columns  
+| Column | What It Tells Us |
+|--------|-----------------|
+| title | Job title |
+| location | Where the job is based |
+| company_profile | A short description of the company |
+| description | The full job description |
+| requirements | What skills or experience the job asks for |
+| has_company_logo | 1 = logo is there, 0 = missing |
+| has_company_profile | 1 = company profile filled in, 0 = blank |
+| telecommuting | 1 = remote work allowed, 0 = office only |
+| salary_range | Pay details (when the company shared them) |
+| employment_type | Full-time, Part-time, Contract, etc. |
+| industry | What kind of business or field |
+| fraudulent | **1 = fake post, 0 = real post** |
 
-**Main Columns:**  
-`title`, `location`, `company_profile`, `description`, `requirements`, `telecommuting`,  
-`has_company_logo`, `employment_type`, `industry`, and `fraudulent` (1 = fake, 0 = real).  
-
-The dataset contains both real and fake job posts, allowing comparisons based on company info, job descriptions, and key text patterns.  
-
----
-
-## Tools and Libraries Used  
-- **Python:** Main language for analysis.  
-- **Pandas:** For cleaning and handling data.  
-- **NumPy:** For calculations.  
-- **Matplotlib & Seaborn:** For charts and visual analysis.  
-- **WordCloud:** To show common words used in fake and real job posts.  
-
----
-
-## Project Steps  
-
-### 1. Loading and Cleaning the Data  
-The dataset was loaded into a Pandas DataFrame. Columns like company profile, salary, department, and industry had missing values, which were filled with “Unknown” for easy comparison.
-
-### 2. Creating New Features  
-New features were added to study patterns:  
-- `desc_length` – word count in job description.  
-- `req_length` – word count in requirements.  
-- `company_missing` – marks if the company profile was missing.
-
-### 3. Exploring the Data  
-Charts were created to compare real and fake posts on fields such as company info, salary, job type, and text length. Word clouds were also generated to see common terms used in both categories.  
-
-> **Quick Insight:** Fake job descriptions are usually short and use words that sound too easy or appealing.
+Several columns like `salary_range` and `department` have high missing rates — which itself turns out to be one of the strongest fraud signals.
 
 ---
 
-## Key Findings  
+## Key Findings
 
-### 1. Real vs Fake Ratio  
-<p align="center">
-  <img src="Real%20vs%20Fake.png" alt="Real vs Fake Job Posts" width="600"/>
-</p>
-<p align="center"><i>Chart showing the number of real vs fake job postings.<br>Fake jobs are fewer in number but still cause major issues for job seekers.</i></p>
+### 1. Missing Company Info is the Strongest Fraud Signal
 
-Out of **17,880** jobs, only about **4.8%** were fake. Even though fake jobs are a small percentage, they create big trust problems on job platforms.  
+Fake posts almost never include a company logo or profile. Real companies show who they are. Scammers hide.
 
----
+![Company Logo Comparison](images/company_logo_comparison_high_res.png)
 
-### 2. Missing Information  
-<p align="center">
-  <img src="Company%20Logo%20Presence.png" alt="Company Logo Presence" width="600"/>
-</p>
-<p align="center"><i>Chart comparing presence of company logos in real and fake job posts.<br>Fake jobs often skip company logos, while real jobs almost always include them.</i></p>
-
-<p align="center">
-  <img src="Missing%20Company%20Profile.png" alt="Missing Company Profile" width="600"/>
-</p>
-<p align="center"><i>Chart comparing missing company profiles.<br>Fake posts are more likely to hide company details or profiles.</i></p>
-
-> **Quick Insight:** Missing company logo and profile are strong signs of suspicious or fake job listings.  
+![Missing Company Profile](images/missing_company_profile_fraud_high_res.png)
 
 ---
 
-### 3. Short or Vague Text  
-<p align="center">
-  <img src="Job%20Description%20Length.png" alt="Job Description Length" width="600"/>
-</p>
-<p align="center"><i>Boxplot comparing job description lengths.<br>Fake posts have shorter descriptions and fewer details.</i></p>
+### 2. Fake Descriptions are Short and Vague
 
-<p align="center">
-  <img src="Requirements%20Length.png" alt="Requirements Length" width="600"/>
-</p>
-<p align="center"><i>Chart showing word count in requirements.<br>Fake jobs list fewer skills or give unclear requirements.</i></p>
+Real job posts average much longer descriptions. Scammers don't bother writing detailed role descriptions — they keep it short, generic, and vague.
 
-> **Quick Insight:** Real companies write longer, more detailed job descriptions and mention skills clearly.  
+![Description Length](images/description_length_fixed_legend.png)
+
+![Requirements Length](images/requirements_length_distribution.png)
 
 ---
 
-### 4. High-Risk Categories  
-<p align="center">
-  <img src="Telecommuting%20Jobs.png" alt="Telecommuting Jobs" width="600"/>
-</p>
-<p align="center"><i>Chart comparing remote vs on-site jobs.<br>Fake jobs are slightly more likely to advertise remote or “work from home” roles.</i></p>
+### 3. Suspicious Keywords Show Up More in Fake Posts
 
-<p align="center">
-  <img src="Employment%20Type.png" alt="Employment Type" width="600"/>
-</p>
-<p align="center"><i>Employment type comparison.<br>Fake jobs often list “Unknown” or misleading types.</i></p>
+Words like "easy money," "fast cash," "urgent," and "work from home" appear in about **12% of fake posts** compared to just **~4% of real ones.**
 
-<p align="center">
-  <img src="Top%20Industries.png" alt="Top Industries" width="600"/>
-</p>
-<p align="center"><i>Fraud rate by industry.<br>Industries like Oil & Energy and Telecom show higher fake job activity.</i></p>
-
-> **Quick Insight:** Some industries attract more fake postings, especially where jobs sound flexible or high-paying.  
+Real company profiles average **~96 words**. Fake ones average **~32 words**. Short profiles combined with bait language = higher fraud risk.
 
 ---
 
-### 5. Red Flag Words  
-<p align="center">
-  <img src="Word%20Cloud%20for%20Fake.png" alt="Fake Job Word Cloud" width="600"/>
-</p>
-<p align="center"><i>Word cloud for fake job descriptions.<br>Shows common terms like “work from home”, “quick money”, and “no experience”.</i></p>
+### 4. Salary Info Can Be Misleading
 
-<p align="center">
-  <img src="Word%20Cloud%20for%20Real.png" alt="Real Job Word Cloud" width="600"/>
-</p>
-<p align="center"><i>Word cloud for real job descriptions.<br>Highlights words like “team”, “development”, and “project”.</i></p>
+This one is counterintuitive. Posts that include salary details actually have a **slightly higher fraud rate**. Some scammers add fake salary ranges to make the listing look more convincing.
 
-> **Quick Insight:** Fake job descriptions sound attractive but lack specific job details, while real posts use professional and role-based language.  
+Salary presence alone is not a reliable safety signal.
+
+![Salary vs Fraud](images/salary_transparency_fraud_rate.png)
 
 ---
 
-## Quick Insights Summary  
-> **1.** Fake job posts skip company logos and profiles.  
-> **2.** Short, vague descriptions are a warning sign.  
-> **3.** Certain industries like Oil & Energy or Telecom have more fake listings.  
-> **4.** Fake posts often include words like “work from home” or “quick money.”  
-> **5.** The more fields missing in a post, the higher the fraud risk.  
-> **6.** Real job posts are longer and more detailed, showing clear requirements.  
+### 5. Remote Jobs Carry Slightly Higher Risk
+
+Fake listings lean more toward remote claims. Scammers use "remote" as bait because it widens the target audience. Not a strong signal on its own, but worth noting.
+
+![Telecommuting](images/telecommuting_comparison_high_res.png)
 
 ---
 
-## Recommendations  
-- Make company name, logo, salary, and location **mandatory fields** in job postings.  
-- Add a **minimum word limit** for job descriptions.  
-- Use a simple **“Trust Score”** to flag posts missing important details.  
-- Watch for **red-flag keywords** such as “quick money” or “no experience needed.”  
-- Apply extra checks for **high-risk industries** like Oil & Energy and Telecom.  
-- Share short **safety reminders** with job seekers (for example, “Be cautious of jobs that sound too good to be true”).  
-- Review and update the fraud-detection rules regularly.  
+### 6. Missing Info Score — The Most Important Finding
+
+A single score based on how many fields a post leaves blank. The fraud rate drops sharply as the score goes up.
+
+One missing field is normal. Four missing fields is a red flag.
+
+![Completeness Score](images/completeness_vs_fraud_rate.png)
 
 ---
 
-## Future Work  
-- Create a small web tool where users can paste a job post and get a quick “real or fake” rating.  
-- Use deeper text analysis to detect patterns across industries and roles.  
-- Check how fake job trends change over time.  
-- Test these methods on newer datasets to confirm consistent patterns.  
+### 7. Some Industries Have Much Higher Fraud Rates
+
+Oil & Energy stands out at **~38% fraud rate** (109 fake posts out of 287 — large enough sample to be reliable). Healthcare and Telecom also run higher than average.
+
+![Industry Fraud Rate](images/industry_fraud_rate_high_res.png)
 
 ---
 
-## Project Summary and Conclusion  
-This analysis of **17,880 job postings** clearly shows that fake job posts follow a predictable pattern. They often skip company details, use short descriptions, and rely on catchy or vague words.  
+### 8. Red Flags Stack Up — From 5% to 67%
 
-Even without complex models, simple checks — like verifying company info, checking text length, and spotting certain keywords — can stop fake listings before they reach users. These small steps help protect job seekers, save time, and make online hiring safer.  
+This is where it all comes together. Individual signals are useful, but when they combine, the fraud rate climbs steeply.
 
-> **Quick Insight:** Data analysis can be used in practical ways to improve user safety and build trust in digital hiring systems.  
+| Red Flag Combination | Fraud Rate |
+|---------------------|-----------|
+| All Jobs (Baseline) | 4.8% |
+| No Company Logo | 15.9% |
+| No Logo AND No Profile | 21.8% |
+| + Short Description | 26.7% |
+| + Suspicious Keywords | **66.7%** |
+
+![Stacked Red Flags](images/risk_factor_bold_high_res.png)
+
+A post that hits all four red flags has a **67% chance of being fake** — up from a 5% baseline. That's the foundation of the Trust Score.
 
 ---
 
-## How to Run This Project  
-1. Download the dataset from [Kaggle](https://www.kaggle.com/shivamb/real-or-fake-fake-jobposting-prediction).  
-2. Place it inside a `data` folder.  
-3. Open `Job_post.ipynb` in Jupyter Notebook or VS Code.  
-4. Run all cells in order to reproduce the analysis and visuals.  
+## What Didn't Matter
+
+| Factor | Result |
+|--------|--------|
+| Employment Type | Fake posts spread across all types — not a useful filter |
+| Time of posting | No meaningful pattern |
+
+![Employment Type](images/employment_type_distribution_high_res.png)
+
+---
+
+## Trust Score System
+
+Based on the patterns above, a simple scoring system can flag risky job listings before they go live.
+
+Each new post gets checked on five signals:
+
+| Signal | Red Flag Condition | Points |
+|--------|-------------------|--------|
+| Company logo | Missing | +1 |
+| Company profile | Missing or blank | +1 |
+| Description length | Below a set character threshold | +1 |
+| Suspicious keywords | Contains 2+ flagged words | +1 |
+| Missing info score | 3+ fields left blank | +1 |
+
+**How to read the score:**
+
+- **0–1** → Low risk. Post goes live immediately.
+- **2–3** → Medium risk. Flag for quick review.
+- **4–5** → High risk. Hold for manual review before publishing.
+
+This kind of check takes milliseconds to run. It catches most fake posts without creating friction for real employers who fill in their details properly.
+
+---
+
+## Recommendations
+
+Four things a job platform should do based on this data:
+
+**1. Require company identity fields**
+Make company name, logo upload, and profile description mandatory. This single change blocks the most common pattern in fake posts.
+
+**2. Set minimum content standards**
+Add a minimum character count for job descriptions and requirements. A floor of 200–300 characters would filter out the laziest scams.
+
+**3. Flag suspicious keyword combinations**
+Build a simple keyword scanner. One keyword alone isn't enough — but two or three together should trigger a review.
+
+**4. Add extra scrutiny for high-risk industries**
+Oil & Energy, Healthcare, and Telecom show significantly higher fraud rates. Posts in these industries could go through a stricter review process.
+
+---
+
+## Conclusion
+
+Fake job posts are lazy. They skip company details, write short descriptions, use bait keywords, and leave fields blank. Real employers do the opposite.
+
+These patterns are consistent enough to catch most fakes with a simple scoring system — no machine learning required. The Trust Score approach is lightweight, easy to implement, and doesn't slow down legitimate employers.
+
+For any platform dealing with job posting fraud, this analysis provides a ready-to-use framework: check the signals, calculate a score, flag the risky ones.
+
+---
+
+## Data Quality
+
+Before any analysis, the data was checked:
+
+- Missing values identified and handled across all 18 columns
+- Text fields filled with "Unknown" where blank
+- Binary flags created for missing company info, salary, location, education, and industry
+- All features validated before being used in scoring
+
+---
+
+## Tools & Libraries
+
+| Tool | Used For |
+|------|----------|
+| Python | Data cleaning, feature engineering, analysis |
+| Pandas | Data manipulation and grouping |
+| NumPy | Numerical operations |
+| Matplotlib | All charts and visualizations |
+| Seaborn | Statistical plots and styled visuals |
+| Jupyter Notebook | Full end-to-end analysis |
+
+---
+
+## Project Structure
+
+```
+fake-job-detection/
+│
+├── scam_job_detection_and_risk_analysis.ipynb    # Full analysis notebook
+├── fake_job_postings.csv                          # Dataset
+├── README.md                                      # This file
+│
+└── images/                                        # All charts generated by the notebook
+    ├── missing_data_chart_high_res.png
+    ├── real_vs_fake_jobs_high_res.png
+    ├── top_missing_columns_high_res.png
+    ├── company_logo_comparison_high_res.png
+    ├── telecommuting_comparison_high_res.png
+    ├── employment_type_distribution_high_res.png
+    ├── missing_company_profile_fraud_high_res.png
+    ├── description_length_fixed_legend.png
+    ├── requirements_length_distribution.png
+    ├── salary_transparency_fraud_rate.png
+    ├── completeness_vs_fraud_rate.png
+    ├── industry_fraud_rate_high_res.png
+    └── risk_factor_bold_high_res.png
+```
+
+---
+
+## How to Run This Project
+
+1. Clone this repo
+   ```bash
+   git clone https://github.com/analytics-ak/fake-job-detection.git
+   ```
+2. Install the required libraries
+   ```bash
+   pip install pandas numpy matplotlib seaborn
+   ```
+3. Open the notebook
+   ```bash
+   jupyter notebook scam_job_detection_and_risk_analysis.ipynb
+   ```
+4. Run all cells — charts will generate automatically
 
 ---
 
 ## Profile & Dataset
 
 * 🔗 **LinkedIn:** [View My Profile](https://www.linkedin.com/in/analytics-ashish/)
-* 📂 **Dataset:** [Real VS Fake Jobs Prediction Dataset on Kaggle](https://www.kaggle.com/shivamb/real-or-fake-fake-jobposting-prediction)
-* 💻 **GitHub Repository:** [Real VS Fake Job Postings Analysis](https://github.com/analytics-ak/real-vs-fake-job-postings)
-* 📘 **Notebook:** [Job_post.ipynb](https://github.com/analytics-ak/real-vs-fake-job-postings/blob/main/Job_post.ipynb)
+* 📂 **Dataset:** [Real or Fake Job Posting on Kaggle](https://www.kaggle.com/shivamb/real-or-fake-fake-jobposting-prediction)
+* 💻 **GitHub Repository:** [Fake Job Detection](https://github.com/analytics-ak/real-vs-fake-job-postings)
+* 📘 **Notebook:** [scam_job_detection_and_risk_analysis.ipynb](https://github.com/analytics-ak/real-vs-fake-job-postings/blob/main/scam_job_detection_and_risk_analysis.ipynb)
 
 <br>
 
-## Author: Ashish Kumar Dongre — Data Analyst
-I love working with data and finding simple insights that help businesses grow. Skilled in **Python (Jupyter, pandas, seaborn, matplotlib, Wordcloud)**, and experienced in turning raw data into clear, useful reports.
+## Author
 
---- 
-**End of README**
+**Ashish Kumar Dongre**
+Data Analyst
 
+- Python | Pandas | Data Analysis
+- Focus: **Business-driven data insights**
